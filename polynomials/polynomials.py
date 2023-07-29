@@ -34,7 +34,7 @@ class Polynomial:
     def __add__(self, other):
 
         if isinstance(other, Polynomial):
-            common = min(stestelf.degree(), other.degree()) + 1
+            common = min(self.degree(), other.degree()) + 1
             coefs = tuple(a + b for a, b in zip(self.coefficients,
                                                 other.coefficients))
             coefs += self.coefficients[common:] + other.coefficients[common:]
@@ -105,3 +105,10 @@ class Polynomial:
         terms = [self.coefficients[i]*input**i for i in range(self.degree()+1)]
         return sum(terms)
     
+    def dx(self):
+
+        new_coeff = tuple(i*self.coefficients[i] for i in range(1,self.degree()+1))
+        return Polynomial(new_coeff)
+
+def derivative(f: Polynomial):
+    return f.dx()
